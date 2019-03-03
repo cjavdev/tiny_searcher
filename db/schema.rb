@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2019_03_03_184855) do
 
   create_table "tickets", force: :cascade do |t|
     t.string "external_id"
-    t.string "type"
+    t.string "ticket_type"
     t.string "subject"
     t.text "description"
     t.string "priority"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_03_03_184855) do
     t.index ["priority"], name: "index_tickets_on_priority"
     t.index ["status"], name: "index_tickets_on_status"
     t.index ["submitter_id"], name: "index_tickets_on_submitter_id"
-    t.index ["type"], name: "index_tickets_on_type"
+    t.index ["ticket_type"], name: "index_tickets_on_ticket_type"
   end
 
   create_table "users", force: :cascade do |t|
