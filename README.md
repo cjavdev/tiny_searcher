@@ -9,3 +9,11 @@ rails s
 ```
 
 Browse to localhost:3000
+
+
+## Running tests
+
+
+Rubocop is run as part of the test suite:
+
+`bundle exec rspec spec`

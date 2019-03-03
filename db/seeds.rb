@@ -64,7 +64,7 @@ get('tickets').each do |data|
     organization_id: data['organization_id'],
     has_incidents: data['has_incidents'],
     due_at: data['due_at'],
-    via: data['via'],
+    via: data['via']
   )
   data['tags'].each do |tag|
     ticket.tags.find_or_create_by(name: tag)

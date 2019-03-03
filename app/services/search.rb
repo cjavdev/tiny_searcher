@@ -4,7 +4,7 @@ class Search
     User.left_outer_joins(:tags),
     Organization.left_outer_joins(:tags, :domains),
     Ticket.left_outer_joins(:tags)
-  ]
+  ].freeze
 
   attr_reader :resources, :errors
 
@@ -17,10 +17,10 @@ class Search
   def where_clauses
     return @where_clauses if @where_clauses
 
-    @where_clauses = @query.split(" ").map do |clause|
-      field, value = clause.split(":")
+    @where_clauses = @query.split(' ').map do |clause|
+      field, value = clause.split(':')
       if value.nil?
-        errors << "Queries must be in the form <field>:<value>."
+        errors << 'Queries must be in the form <field>:<value>.'
       elsif !supported_fields.include?(field)
         errors << "Unsupported field `#{field}`."
       end
@@ -29,9 +29,9 @@ class Search
 
     # TODO: make this so the keys were all the same type. Also, maybe generate
     # dynamically?
-    if where_clauses.has_key?("name")
-      where_clauses["tags"] = { "name" => where_clauses["name"] }
-      where_clauses["domains"] = { "name" => where_clauses["name"] }
+    if where_clauses.key?('name')
+      where_clauses['tags'] = { 'name' => where_clauses['name'] }
+      where_clauses['domains'] = { 'name' => where_clauses['name'] }
     end
 
     @where_clauses
@@ -44,7 +44,7 @@ class Search
   end
 
   def supported_fields
-    @supproted_fields ||= resources.map(&:column_names).flatten
+    @supported_fields ||= resources.map(&:column_names).flatten
   end
 
   # Define two methods per resource. One for getting the where clause and one
@@ -63,19 +63,13 @@ class Search
     plural_name_related_clauses = "#{plural_name}_related_clauses"
 
     define_method(plural_name_related_clauses) do
-      # Valid fields are any direct column, or association.
       fields = resource.reflect_on_all_associations.map(&:name).map(&:to_s)
-      where_clauses.select do |field, value|
-        fields.include?(field)
-      end.to_h
+      where_clauses.select { |field, _| fields.include?(field) }.to_h
     end
 
     define_method(plural_name_clauses) do
-      # Valid fields are any direct column, or association.
       fields = resource.column_names
-      where_clauses.select do |field, value|
-        fields.include?(field)
-      end.to_h
+      where_clauses.select { |field, _| fields.include?(field) }.to_h
     end
 
     define_method(plural_name) do
@@ -87,13 +81,9 @@ class Search
       if !where_clause.empty?
         results = results.where(where_clause)
       end
-
-      if !where_related_clause.empty?
-        where_related_clause.each do |field, value|
-          results = results.or(resource.where(field => value))
-        end
+      where_related_clause.each do |field, value|
+        results = results.or(resource.where(field => value))
       end
-
       results.distinct
     end
   end
