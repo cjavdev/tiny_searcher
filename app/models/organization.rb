@@ -19,7 +19,7 @@
 
 class Organization < ApplicationRecord
   has_many :tags, as: :taggable
-  has_many :domains, class_name: "OrganizationDomain"
+  has_many :domains
 
   def to_s
     "Organization (#{ id }): #{ name }"
