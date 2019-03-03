@@ -9,7 +9,7 @@ class CreateTickets < ActiveRecord::Migration[5.2]
       t.string :status
       t.integer :submitter_id, index: true
       t.integer :assignee_id, index: true
-      t.references :organization, foreign_key: true
+      t.integer :organization_id, index: true
       t.boolean :has_incidents
       t.datetime :due_at
       t.string :via

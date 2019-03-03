@@ -32,4 +32,8 @@
 class Ticket < ApplicationRecord
   belongs_to :organization, optional: true
   has_many :tags, as: :taggable
+
+  def to_s
+    "Ticket (#{ id }): #{ subject }"
+  end
 end

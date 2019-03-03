@@ -27,7 +27,8 @@ class Search
       [field, value]
     end.to_h
 
-    # TODO: make this so the keys were all the same type.
+    # TODO: make this so the keys were all the same type. Also, maybe generate
+    # dynamically?
     if where_clauses.has_key?("name")
       where_clauses["tags"] = {"name" => where_clauses["name"]}
       where_clauses["domains"] = {"name" => where_clauses["name"]}
@@ -93,7 +94,7 @@ class Search
         end
       end
 
-      results
+      results.distinct
     end
   end
 end

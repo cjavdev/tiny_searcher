@@ -24,16 +24,6 @@ ActiveRecord::Schema.define(version: 2019_03_03_221456) do
     t.index ["organization_id"], name: "index_domains_on_organization_id"
   end
 
-  create_table "organization_domains", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "organization_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_organization_domains_on_name"
-    t.index ["organization_id", "name"], name: "index_organization_domains_on_organization_id_and_name", unique: true
-    t.index ["organization_id"], name: "index_organization_domains_on_organization_id"
-  end
-
   create_table "organizations", force: :cascade do |t|
     t.string "external_id"
     t.string "name"
@@ -65,7 +55,7 @@ ActiveRecord::Schema.define(version: 2019_03_03_221456) do
     t.string "status"
     t.integer "submitter_id"
     t.integer "assignee_id"
-    t.bigint "organization_id"
+    t.integer "organization_id"
     t.boolean "has_incidents"
     t.datetime "due_at"
     t.string "via"
@@ -93,16 +83,12 @@ ActiveRecord::Schema.define(version: 2019_03_03_221456) do
     t.string "email"
     t.string "phone"
     t.string "signature"
-    t.bigint "organization_id"
+    t.integer "organization_id"
     t.boolean "suspended"
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_users_on_organization_id"
   end
 
   add_foreign_key "domains", "organizations"
-  add_foreign_key "organization_domains", "organizations"
-  add_foreign_key "tickets", "organizations"
-  add_foreign_key "users", "organizations"
 end

@@ -13,7 +13,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :phone
       t.string :signature
-      t.references :organization, foreign_key: true
+      t.integer :organization_id
       t.boolean :suspended
       t.string :role
 

@@ -41,6 +41,7 @@ get("users").each do |data|
     organization_id:  data["organization_id"],
     suspended:        data["suspended"],
     role:             data["role"],
+    active:           data["active"],
   )
   data["tags"].each do |tag|
     user.tags.find_or_create_by(name: tag)
