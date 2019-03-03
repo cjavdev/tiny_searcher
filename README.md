@@ -1,5 +1,7 @@
 # Tiny Searcher
 
+Sample: http://recordit.co/yF4ttSDEHj
+
 ## Getting Started
 
 ```sh
