@@ -1,7 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+def get(resource)
+  JSON.parse(File.read(Rails.root.join("data", "#{ resource }.json")))
+end
+
+puts "Loading organizations."
+get("organizations").each do |data|
+  Organization.find_or_create_by(
+    id:               data["_id"],
+    created_at:       data["created_at"],
+    name:             data["name"],
+    shared_tickets:   data["shared_tickets"],
+  ) do |org|
+    data["domain_names"].each do |domain|
+      org.domain_names.find_or_create_by(name: domain)
+    end
+
+    data["tags"].each do |tag|
+      org.tags.find_or_create_by(name: tag)
+    end
+  end
+end
