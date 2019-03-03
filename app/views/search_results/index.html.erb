@@ -1,0 +1,47 @@
+<div class="container">
+  <h1>Tiny Searcher</h1>
+  <div class="col-md-9">
+    <form action="/" class="form">
+      <div class="form-group">
+        <input type="text" name="query" class="form-control" value="<%= params[:query] %>">
+      </div>
+      <input type="submit" class="btn btn-default pull-right" value="Search">
+    </form>
+
+    <% if !@results.empty? %>
+      <ul>
+        <% @results.each do |result| %>
+          <li><%= link_to result %></li>
+        <% end %>
+      </ul>
+    <% elsif params[:query] %>
+      No results found.
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <div class="pannel">
+      <h3>Search Guide</h3>
+      <p>
+        Search for resources using the following field names using key value pairs
+        where one of the keys is in the list below.
+      </p>
+
+      <p>
+        Find objects with ID = 2 by searching for <code>id:2</code>
+      </p>
+
+      <p>
+        Find active users with the role admin  by searching for <code>active:true role:admin</code>
+      </p>
+
+      <% @search_service.resources.each do |resource| %>
+        <h5><%= resource.name.capitalize %></h5>
+        <ul>
+          <% resource.column_names.each do |column_name| %>
+            <li><%= column_name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>

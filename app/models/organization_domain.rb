@@ -18,4 +18,8 @@
 class OrganizationDomain < ApplicationRecord
   belongs_to :organization
   validates :name, presence: true
+
+  def to_s
+    "Domain (#{ id }): #{ name } - #{ organization }"
+  end
 end

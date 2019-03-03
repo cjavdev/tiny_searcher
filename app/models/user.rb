@@ -29,4 +29,8 @@
 class User < ApplicationRecord
   belongs_to :organization, optional: true
   has_many :tags, as: :taggable
+
+  def to_s
+    "User (#{ id }): #{ name } aka #{ self.alias }"
+  end
 end

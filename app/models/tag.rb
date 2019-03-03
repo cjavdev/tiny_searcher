@@ -18,4 +18,8 @@
 class Tag < ApplicationRecord
   belongs_to :taggable, polymorphic: true
   validates :name, presence: true
+
+  def to_s
+    "Tag (#{ id }): #{ name } - #{ taggable }"
+  end
 end
