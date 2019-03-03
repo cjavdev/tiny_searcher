@@ -8,7 +8,7 @@ class Search
 
   attr_reader :resources, :errors
 
-  def initialize(query, resources=RESOURCES)
+  def initialize(query, resources = RESOURCES)
     @query = query
     @errors = []
     @resources = resources
@@ -22,7 +22,7 @@ class Search
       if value.nil?
         errors << "Queries must be in the form <field>:<value>."
       elsif !supported_fields.include?(field)
-        errors << "Unsupported field `#{ field }`."
+        errors << "Unsupported field `#{field}`."
       end
       [field, value]
     end.to_h
@@ -30,8 +30,8 @@ class Search
     # TODO: make this so the keys were all the same type. Also, maybe generate
     # dynamically?
     if where_clauses.has_key?("name")
-      where_clauses["tags"] = {"name" => where_clauses["name"]}
-      where_clauses["domains"] = {"name" => where_clauses["name"]}
+      where_clauses["tags"] = { "name" => where_clauses["name"] }
+      where_clauses["domains"] = { "name" => where_clauses["name"] }
     end
 
     @where_clauses
@@ -59,8 +59,8 @@ class Search
   # end
   RESOURCES.each do |resource|
     plural_name = resource.name.tableize
-    plural_name_clauses = "#{ plural_name }_clauses"
-    plural_name_related_clauses = "#{ plural_name }_related_clauses"
+    plural_name_clauses = "#{plural_name}_clauses"
+    plural_name_related_clauses = "#{plural_name}_related_clauses"
 
     define_method(plural_name_related_clauses) do
       # Valid fields are any direct column, or association.

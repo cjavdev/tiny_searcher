@@ -31,6 +31,6 @@ class User < ApplicationRecord
   has_many :tags, as: :taggable
 
   def to_s
-    "User (#{ id }): #{ name } aka #{ self.alias }"
+    "User (#{id}): #{name} aka #{self.alias}"
   end
 end

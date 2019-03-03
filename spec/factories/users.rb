@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :user do
-    sequence(:external_id) {|x| "ext-#{ x }"}
+    sequence(:external_id) { |x| "ext-#{x}" }
   end
 end

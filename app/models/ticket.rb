@@ -34,6 +34,6 @@ class Ticket < ApplicationRecord
   has_many :tags, as: :taggable
 
   def to_s
-    "Ticket (#{ id }): #{ subject }"
+    "Ticket (#{id}): #{subject}"
   end
 end

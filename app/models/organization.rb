@@ -22,6 +22,6 @@ class Organization < ApplicationRecord
   has_many :domains
 
   def to_s
-    "Organization (#{ id }): #{ name }"
+    "Organization (#{id}): #{name}"
   end
 end

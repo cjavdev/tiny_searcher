@@ -20,6 +20,6 @@ class Tag < ApplicationRecord
   validates :name, presence: true
 
   def to_s
-    "Tag (#{ id }): #{ name } - #{ taggable }"
+    "Tag (#{id}): #{name} - #{taggable}"
   end
 end
