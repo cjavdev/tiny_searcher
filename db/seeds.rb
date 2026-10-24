@@ -50,9 +50,10 @@ end
 
 puts 'Loading tickets.'
 get('tickets').each do |data|
-  ticket = Ticket.find_or_create_by(id: data['_id'])
+  # Ticket ids in the data are UUIDs but the column is an integer, so match on
+  # external_id instead (Rails 5 silently cast the UUID's leading digits to an id).
+  ticket = Ticket.find_or_initialize_by(external_id: data['external_id'])
   ticket.update!(
-    external_id: data['external_id'],
     created_at: data['created_at'],
     ticket_type: data['type'],
     subject: data['subject'],

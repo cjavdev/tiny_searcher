@@ -8,16 +8,13 @@ AllCops:
     - 'bin/*'
     - 'Gemfile'
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: false
 
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/BracesAroundHashParameters:
   Enabled: false
 
 Style/TrailingCommaInHashLiteral:
@@ -27,7 +24,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Style/NegatedIf:
